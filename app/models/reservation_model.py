@@ -41,7 +41,7 @@ class Reservation(db.Model):
         return Reservation.query.get(id)
 
     # Actualiza un Reservation en la base de datos
-    def update(self, special_requests=None, reservation_date=None, num_guests=None status=None, user_id=None, restaurant_id=None):
+    def update(self, special_requests=None, reservation_date=None, num_guests=None, status=None, user_id=None, restaurant_id=None):
         if special_requests is not None:
             self.special_requests = special_requests
         if reservation_date is not None:
