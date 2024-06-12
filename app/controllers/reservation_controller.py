@@ -33,18 +33,21 @@ def get_reservation(id):
 @jwt_required
 @roles_required(roles=["admin"])
 def create_reservation():
+
     data = request.json
-    name = data.get("name")
-    description = data.get("description")
-    price = data.get("price")
-    stock = data.get("stock")
+    user_id = data.get("user_id")
+    restaurant_id = data.get("restaurant_id")
+    reservation_date = data.get("reservation_date")
+    num_guests = data.get("num_guests")
+    special_requests = data.get("special_requests")
+    status = data.get("status")
 
     # Validación simple de datos de entrada
-    if not name or not description or not price or stock is None:
+    if not user_id or not special_requests or not restaurant_id or not reservation_date or not num_guests or status is None:
         return jsonify({"error": "Faltan datos requeridos"}), 400
 
     # Crear un nuevo reservation y guardarlo en la base de datos
-    reservation = Reservation(name=name, description=description, price=price, stock=stock)
+    reservation = Reservation(user_id=user_id, restaurant_id=restaurant_id, reservation_date=reservation_date, special_requests=special_requests, num_guests=num_guests, status=status)
     reservation.save()
 
     return jsonify(render_reservation_detail(reservation)), 201
@@ -61,13 +64,15 @@ def update_reservation(id):
         return jsonify({"error": "Reservationo no encontrado"}), 404
 
     data = request.json
-    name = data.get("name")
-    description = data.get("description")
-    price = data.get("price")
-    stock = data.get("stock")
+    user_id = data.get("user_id")
+    restaurant_id = data.get("restaurant_id")
+    reservation_date = data.get("reservation_date")
+    num_guests = data.get("num_guests")
+    special_requests = data.get("special_requests")
+    status = data.get("status")
 
     # Actualizar los datos del reservation
-    reservation.update(name=name, description=description, price=price, stock=stock)
+    reservation.update(user_id=user_id, restaurant_id=restaurant_id, reservation_date=reservation_date, special_requests=special_requests, num_guests=num_guests, status=status)
 
     return jsonify(render_reservation_detail(reservation))
 

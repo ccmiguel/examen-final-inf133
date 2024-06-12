@@ -4,9 +4,12 @@ def render_restaurant_list(restaurants):
         {
             "id": restaurant.id,
             "name": restaurant.name,
+            "address": restaurant.address,
+            "city": restaurant.city,
+            "phone": restaurant.phone,
             "description": restaurant.description,
-            "price": restaurant.price,
-            "stock": restaurant.stock,
+            "rating": restaurant.rating,
+            
         }
         for restaurant in restaurants
     ]
@@ -17,7 +20,9 @@ def render_restaurant_detail(restaurant):
     return {
         "id": restaurant.id,
         "name": restaurant.name,
+        "address": restaurant.address,
+        "city": restaurant.city,
+        "phone": restaurant.phone,
         "description": restaurant.description,
-        "price": restaurant.price,
-        "stock": restaurant.stock,
+        "rating": restaurant.rating,
     }

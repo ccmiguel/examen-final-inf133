@@ -33,18 +33,21 @@ def get_restaurant(id):
 @jwt_required
 @roles_required(roles=["admin"])
 def create_restaurant():
+
     data = request.json
     name = data.get("name")
+    address = data.get("address")
     description = data.get("description")
-    price = data.get("price")
-    stock = data.get("stock")
+    city = data.get("city")
+    raiting = data.get("raiting")
+    phone = data.get("phone")
 
     # Validación simple de datos de entrada
-    if not name or not description or not price or stock is None:
+    if not name or not address or not description or not city or not raiting or phone is None:
         return jsonify({"error": "Faltan datos requeridos"}), 400
 
     # Crear un nuevo restaurant y guardarlo en la base de datos
-    restaurant = Restaurant(name=name, description=description, price=price, stock=stock)
+    restaurant = Restaurant(name=name, address=address, description=description, city=city, raiting=raiting, phone=phone)
     restaurant.save()
 
     return jsonify(render_restaurant_detail(restaurant)), 201
@@ -62,12 +65,14 @@ def update_restaurant(id):
 
     data = request.json
     name = data.get("name")
+    address = data.get("address")
     description = data.get("description")
-    price = data.get("price")
-    stock = data.get("stock")
+    city = data.get("city")
+    raiting = data.get("raiting")
+    phone = data.get("phone")
 
     # Actualizar los datos del restaurant
-    restaurant.update(name=name, description=description, price=price, stock=stock)
+    restaurant.update(name=name, address=address, description=description, city=city, raiting=raiting, phone=phone)
 
     return jsonify(render_restaurant_detail(restaurant))
 
